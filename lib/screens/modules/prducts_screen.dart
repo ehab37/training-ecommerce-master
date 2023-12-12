@@ -82,6 +82,7 @@ class ProductScreen extends StatelessWidget {
                               cubit2.isFav= false;
                             }
                           }
+                          cubit2.imagesIndex = 0;
                           navigateToNextScreen(
                             context,
                             ProductDetails(

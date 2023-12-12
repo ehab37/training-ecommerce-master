@@ -13,11 +13,9 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<FavCubit, FavStates>(
       listener: (context, state) {
-        if (state is AddToFav) {}
       },
       builder: (context, state) {
         var cubit = FavCubit.get(context);
-
         return Scaffold(
           body: SafeArea(
             child: SingleChildScrollView(
@@ -78,7 +76,7 @@ class ProductDetails extends StatelessWidget {
                                 aspectRatio: 1.7,
                                 child: CachedNetworkImage(
                                   fit: BoxFit.fill,
-                                  imageUrl: product.image.toString(),
+                                  imageUrl: product.images[cubit.imagesIndex].toString(),
                                   errorWidget: (context, url, error) =>
                                       const Icon(Icons.error_outline),
                                 ),
@@ -183,26 +181,32 @@ class ProductDetails extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 35),
+                    // DetailsListView(images: product.images),
                     SizedBox(
                       height: 150,
                       child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        itemCount: product.images!.length,
+                        itemCount: product.images.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width / 2,
-                                child: AspectRatio(
-                                  aspectRatio: 1.7,
-                                  child: CachedNetworkImage(
-                                    fit: BoxFit.fill,
-                                    imageUrl: product.images![index].toString(),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error_outline),
+                          return InkWell(
+                            onTap: () {
+                              cubit.isSelected(index);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 16.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  child: AspectRatio(
+                                    aspectRatio: 1.7,
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.fill,
+                                      imageUrl: product.images![index].toString(),
+                                      errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error_outline),
+                                    ),
                                   ),
                                 ),
                               ),

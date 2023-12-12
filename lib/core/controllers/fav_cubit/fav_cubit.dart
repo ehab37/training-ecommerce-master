@@ -12,6 +12,11 @@ class FavCubit extends Cubit<FavStates> {
   static FavCubit get(context) => BlocProvider.of(context);
   PostDeleteFavModel? postDeleteFavModel;
   bool isFav= false;
+  int imagesIndex = 0;
+  void isSelected(index){
+    imagesIndex = index;
+    emit(IsSelectedImage());
+  }
   void getFavIcon(context) {
     if (postDeleteFavModel!.message == 'Product added to favorites') {
       ScaffoldMessenger.of(context).clearSnackBars();
