@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_training/core/controllers/cart_cubit/cart_cubit.dart';
-import 'package:ecommerce_training/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-Widget buildProductItem(Product product,context,void Function() onTab) =>InkWell(
+Widget buildProductItem( product,context,void Function() onTab) =>InkWell(
   onTap:onTab,
   child:   Padding(
     padding: const EdgeInsets.all(8.0),

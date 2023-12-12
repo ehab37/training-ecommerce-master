@@ -1,4 +1,5 @@
 import 'package:ecommerce_training/core/controllers/cart_cubit/cart_cubit.dart';
+import 'package:ecommerce_training/core/controllers/fav_cubit/fav_cubit.dart';
 import 'package:ecommerce_training/core/controllers/onboarding_cubit/onboarding_cubit.dart';
 import 'package:ecommerce_training/core/controllers/products_controller/product_cubit.dart';
 import 'package:ecommerce_training/core/controllers/register_cubit/register_cubit.dart';
@@ -51,6 +52,10 @@ class MyApp extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => CartCubit()..getCart(),
+        lazy: false,
+      ),
+      BlocProvider(
+        create: (context) => FavCubit()..getFav(),
         lazy: false,
       ),
       BlocProvider(

@@ -1,6 +1,9 @@
+import 'package:ecommerce_training/core/controllers/fav_cubit/fav_cubit.dart';
 import 'package:ecommerce_training/core/controllers/products_controller/product_cubit.dart';
 import 'package:ecommerce_training/core/controllers/products_controller/product_states.dart';
+import 'package:ecommerce_training/models/fav_model.dart';
 import 'package:ecommerce_training/screens/modules/cart.dart';
+import 'package:ecommerce_training/screens/modules/favorite.dart';
 import 'package:ecommerce_training/screens/modules/product_details.dart';
 import 'package:ecommerce_training/screens/widgets/build_product_item.dart';
 import 'package:flutter/material.dart';
@@ -30,15 +33,25 @@ class ProductScreen extends StatelessWidget {
             title: const Text('Products'),
           ),
           drawer: Drawer(
-              child: ListView(children: [
-            ListTile(
-              title: const Text('Cart'),
-              leading: const Icon(Icons.person),
-              onTap: () {
-                navigateToNextScreen(context, CartScreen());
-              },
+            child: ListView(
+              children: [
+                ListTile(
+                  title: const Text('Cart'),
+                  leading: const Icon(Icons.person),
+                  onTap: () {
+                    navigateToNextScreen(context, CartScreen());
+                  },
+                ),
+                ListTile(
+                  title: const Text('Favorite'),
+                  leading: const Icon(Icons.favorite),
+                  onTap: () {
+                    navigateToNextScreen(context, const FavoriteScreen());
+                  },
+                ),
+              ],
             ),
-          ])),
+          ),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,6 +72,16 @@ class ProductScreen extends StatelessWidget {
                         cubit.laptopsModel!.product![index],
                         context,
                         () {
+                          var cubit2 = FavCubit.get(context);
+                          for (FavProduct favProduct
+                              in cubit2.favModel!.favProducts!) {
+                            if (cubit.laptopsModel!.product![index].sId ==
+                                favProduct.sId) {
+                              cubit2.isFav = true;
+                            }else{
+                              cubit2.isFav= false;
+                            }
+                          }
                           navigateToNextScreen(
                             context,
                             ProductDetails(
