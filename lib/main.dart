@@ -2,6 +2,7 @@ import 'package:ecommerce_training/core/controllers/cart_cubit/cart_cubit.dart';
 import 'package:ecommerce_training/core/controllers/fav_cubit/fav_cubit.dart';
 import 'package:ecommerce_training/core/controllers/onboarding_cubit/onboarding_cubit.dart';
 import 'package:ecommerce_training/core/controllers/products_controller/product_cubit.dart';
+import 'package:ecommerce_training/core/controllers/profile_cubit/profile_cubit.dart';
 import 'package:ecommerce_training/core/controllers/register_cubit/register_cubit.dart';
 import 'package:ecommerce_training/core/managers/values.dart';
 import 'package:ecommerce_training/core/network/local/cache_helper.dart';
@@ -19,10 +20,10 @@ void main()async{
   WidgetsFlutterBinding.ensureInitialized();
   DioHelperStore.init();
   await CacheHelper.init();
-  boarding = CacheHelper.getData(key: 'Boarding');
+  var boarding = CacheHelper.getData(key: 'Boarding');
   token = CacheHelper.getData(key:'token');
   natoinalId = CacheHelper.getData(key:'userId');
-  if(boarding){
+  if(boarding==true){
     if(token!=null) {
       nextScreen = const ProductScreen();
     }else{
@@ -52,6 +53,10 @@ class MyApp extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => CartCubit()..getCart(),
+        lazy: false,
+      ),
+      BlocProvider(
+        create: (context) => ProfileCubit()..getUserProfile(),
         lazy: false,
       ),
       BlocProvider(

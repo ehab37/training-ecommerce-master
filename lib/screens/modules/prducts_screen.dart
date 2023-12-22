@@ -5,6 +5,7 @@ import 'package:ecommerce_training/models/fav_model.dart';
 import 'package:ecommerce_training/screens/modules/cart.dart';
 import 'package:ecommerce_training/screens/modules/favorite.dart';
 import 'package:ecommerce_training/screens/modules/product_details.dart';
+import 'package:ecommerce_training/screens/modules/profile_screen.dart';
 import 'package:ecommerce_training/screens/widgets/build_product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +38,7 @@ class ProductScreen extends StatelessWidget {
               children: [
                 ListTile(
                   title: const Text('Cart'),
-                  leading: const Icon(Icons.person),
+                  leading: const Icon(Icons.shopping_cart),
                   onTap: () {
                     navigateToNextScreen(context, CartScreen());
                   },
@@ -47,6 +48,13 @@ class ProductScreen extends StatelessWidget {
                   leading: const Icon(Icons.favorite),
                   onTap: () {
                     navigateToNextScreen(context, const FavoriteScreen());
+                  },
+                ),
+                ListTile(
+                  title: const Text('Profile'),
+                  leading: const Icon(Icons.person),
+                  onTap: () {
+                    navigateToNextScreen(context, const ProfileScreen());
                   },
                 ),
               ],
